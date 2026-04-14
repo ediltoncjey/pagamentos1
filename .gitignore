@@ -1,0 +1,13 @@
+/vendor/
+/.env
+/storage/logs/*.log
+/storage/logs/*.jsonl
+/storage/tmp/*
+/storage/uploads/private/*
+!/storage/uploads/private/.gitkeep
+!/storage/logs/.gitkeep
+!/storage/tmp/.gitkeep
+!/storage/tmp/sessions/
+!/storage/tmp/sessions/.gitkeep
+/.phpunit.result.cache
+/node_modules/

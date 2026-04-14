@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /sistem_pay/public/
+
+    RewriteCond %{REQUEST_URI} ^/sistem_pay/(app|config|database|storage)/ [NC]
+    RewriteRule ^ - [F,L]
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L,QSA]
+</IfModule>
+
+Options -Indexes

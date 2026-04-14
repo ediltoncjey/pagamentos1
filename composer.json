@@ -1,0 +1,22 @@
+{
+  "name": "rozvitech/sistem-pay",
+  "description": "SISTEM_PAY - Plataforma de produtos digitais com ledger interno",
+  "type": "project",
+  "license": "proprietary",
+  "require": {
+    "php": "^8.1",
+    "vlucas/phpdotenv": "^5.6",
+    "ramsey/uuid": "^4.7",
+    "monolog/monolog": "^3.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "@php -r \"date_default_timezone_set('UTC');\""
+    ]
+  }
+}

@@ -1,0 +1,92 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    'payment_gateways' => [
+        'default' => \App\Utils\Env::get('PAYMENT_DEFAULT_GATEWAY', 'mpesa'),
+        'mpesa' => [
+            'enabled' => filter_var(\App\Utils\Env::get('PAYMENT_GATEWAY_MPESA_ENABLED', true), FILTER_VALIDATE_BOOL),
+            'configured' => filter_var(\App\Utils\Env::get('PAYMENT_GATEWAY_MPESA_CONFIGURED', true), FILTER_VALIDATE_BOOL),
+            'display_name' => \App\Utils\Env::get('PAYMENT_GATEWAY_MPESA_NAME', 'M-Pesa'),
+            'provider' => \App\Utils\Env::get('PAYMENT_GATEWAY_MPESA_PROVIDER', 'rozvitech'),
+            'base_url' => rtrim(\App\Utils\Env::get('PAYMENT_API_BASE_URL', 'https://pay.rozvitech.com/api/v1'), '/'),
+            'api_key' => \App\Utils\Env::get('PAYMENT_API_KEY', ''),
+            'status_endpoint_template' => \App\Utils\Env::get('PAYMENT_STATUS_ENDPOINT_TEMPLATE', '/payments/{reference}'),
+        ],
+        'emola' => [
+            'enabled' => filter_var(\App\Utils\Env::get('PAYMENT_GATEWAY_EMOLA_ENABLED', false), FILTER_VALIDATE_BOOL),
+            'configured' => filter_var(\App\Utils\Env::get('PAYMENT_GATEWAY_EMOLA_CONFIGURED', false), FILTER_VALIDATE_BOOL),
+            'display_name' => \App\Utils\Env::get('PAYMENT_GATEWAY_EMOLA_NAME', 'e-Mola'),
+            'provider' => \App\Utils\Env::get('PAYMENT_GATEWAY_EMOLA_PROVIDER', 'emola'),
+            'base_url' => rtrim(\App\Utils\Env::get('PAYMENT_GATEWAY_EMOLA_BASE_URL', ''), '/'),
+            'api_key' => \App\Utils\Env::get('PAYMENT_GATEWAY_EMOLA_API_KEY', ''),
+            'status_endpoint_template' => \App\Utils\Env::get('PAYMENT_GATEWAY_EMOLA_STATUS_ENDPOINT_TEMPLATE', '/payments/{reference}'),
+        ],
+        'visa' => [
+            'enabled' => filter_var(\App\Utils\Env::get('PAYMENT_GATEWAY_VISA_ENABLED', false), FILTER_VALIDATE_BOOL),
+            'configured' => filter_var(\App\Utils\Env::get('PAYMENT_GATEWAY_VISA_CONFIGURED', false), FILTER_VALIDATE_BOOL),
+            'display_name' => \App\Utils\Env::get('PAYMENT_GATEWAY_VISA_NAME', 'Visa'),
+            'provider' => \App\Utils\Env::get('PAYMENT_GATEWAY_VISA_PROVIDER', 'visa'),
+            'base_url' => rtrim(\App\Utils\Env::get('PAYMENT_GATEWAY_VISA_BASE_URL', ''), '/'),
+            'api_key' => \App\Utils\Env::get('PAYMENT_GATEWAY_VISA_API_KEY', ''),
+            'status_endpoint_template' => \App\Utils\Env::get('PAYMENT_GATEWAY_VISA_STATUS_ENDPOINT_TEMPLATE', '/payments/{reference}'),
+        ],
+        'paypal' => [
+            'enabled' => filter_var(\App\Utils\Env::get('PAYMENT_GATEWAY_PAYPAL_ENABLED', false), FILTER_VALIDATE_BOOL),
+            'configured' => filter_var(\App\Utils\Env::get('PAYMENT_GATEWAY_PAYPAL_CONFIGURED', false), FILTER_VALIDATE_BOOL),
+            'display_name' => \App\Utils\Env::get('PAYMENT_GATEWAY_PAYPAL_NAME', 'PayPal'),
+            'provider' => \App\Utils\Env::get('PAYMENT_GATEWAY_PAYPAL_PROVIDER', 'paypal'),
+            'base_url' => rtrim(\App\Utils\Env::get('PAYMENT_GATEWAY_PAYPAL_BASE_URL', ''), '/'),
+            'api_key' => \App\Utils\Env::get('PAYMENT_GATEWAY_PAYPAL_API_KEY', ''),
+            'status_endpoint_template' => \App\Utils\Env::get('PAYMENT_GATEWAY_PAYPAL_STATUS_ENDPOINT_TEMPLATE', '/payments/{reference}'),
+        ],
+    ],
+    'payment' => [
+        'provider' => \App\Utils\Env::get('PAYMENT_PROVIDER', 'rozvitech'),
+        'base_url' => rtrim(\App\Utils\Env::get('PAYMENT_API_BASE_URL', 'https://pay.rozvitech.com/api/v1'), '/'),
+        'api_key' => \App\Utils\Env::get('PAYMENT_API_KEY', ''),
+        'status_endpoint_template' => \App\Utils\Env::get('PAYMENT_STATUS_ENDPOINT_TEMPLATE', '/payments/{reference}'),
+        'timeout_seconds' => (int) \App\Utils\Env::get('PAYMENT_TIMEOUT_SECONDS', 30),
+        'enable_callback' => filter_var(\App\Utils\Env::get('PAYMENT_ENABLE_CALLBACK', true), FILTER_VALIDATE_BOOL),
+        'enable_polling' => filter_var(\App\Utils\Env::get('PAYMENT_ENABLE_POLLING', true), FILTER_VALIDATE_BOOL),
+        'poll_interval_seconds' => (int) \App\Utils\Env::get('PAYMENT_POLL_INTERVAL_SECONDS', 90),
+        'poll_max_retries' => (int) \App\Utils\Env::get('PAYMENT_POLL_MAX_RETRIES', 20),
+        'poll_batch_size' => (int) \App\Utils\Env::get('PAYMENT_POLL_BATCH_SIZE', 100),
+        'poll_secret' => \App\Utils\Env::get('PAYMENT_POLL_SECRET', ''),
+        'retry' => [
+            'attempts' => (int) \App\Utils\Env::get('PAYMENT_RETRY_ATTEMPTS', 3),
+            'base_delay_ms' => (int) \App\Utils\Env::get('PAYMENT_RETRY_BASE_DELAY_MS', 250),
+            'factor' => 2.0,
+        ],
+    ],
+    'downloads' => [
+        'token_ttl_seconds' => (int) \App\Utils\Env::get('DOWNLOAD_TOKEN_TTL_SECONDS', 86400),
+        'max_downloads' => (int) \App\Utils\Env::get('DOWNLOAD_MAX_DOWNLOADS', 5),
+    ],
+    'ledger' => [
+        'reconcile_default_limit' => (int) \App\Utils\Env::get('LEDGER_RECONCILE_DEFAULT_LIMIT', 100),
+        'reconcile_max_limit' => (int) \App\Utils\Env::get('LEDGER_RECONCILE_MAX_LIMIT', 1000),
+    ],
+    'reports' => [
+        'default_months' => (int) \App\Utils\Env::get('REPORT_DEFAULT_MONTHS', 6),
+        'max_months' => (int) \App\Utils\Env::get('REPORT_MAX_MONTHS', 24),
+        'default_history_limit' => (int) \App\Utils\Env::get('REPORT_DEFAULT_HISTORY_LIMIT', 25),
+        'max_history_limit' => (int) \App\Utils\Env::get('REPORT_MAX_HISTORY_LIMIT', 200),
+        'default_top_resellers' => (int) \App\Utils\Env::get('REPORT_DEFAULT_TOP_RESELLERS', 10),
+        'max_top_resellers' => (int) \App\Utils\Env::get('REPORT_MAX_TOP_RESELLERS', 50),
+        'default_export_limit' => (int) \App\Utils\Env::get('REPORT_DEFAULT_EXPORT_LIMIT', 500),
+    ],
+    'email' => [
+        'transport' => \App\Utils\Env::get('EMAIL_TRANSPORT', 'smtp'),
+        'host' => \App\Utils\Env::get('EMAIL_HOST', ''),
+        'port' => (int) \App\Utils\Env::get('EMAIL_PORT', 587),
+        'username' => \App\Utils\Env::get('EMAIL_USERNAME', ''),
+        'password' => \App\Utils\Env::get('EMAIL_PASSWORD', ''),
+        'encryption' => \App\Utils\Env::get('EMAIL_ENCRYPTION', 'tls'),
+        'from_address' => \App\Utils\Env::get('EMAIL_FROM_ADDRESS', ''),
+        'from_name' => \App\Utils\Env::get('EMAIL_FROM_NAME', 'SISTEM_PAY'),
+        'timeout_seconds' => (int) \App\Utils\Env::get('EMAIL_TIMEOUT_SECONDS', 20),
+        'allow_insecure' => filter_var(\App\Utils\Env::get('EMAIL_ALLOW_INSECURE', false), FILTER_VALIDATE_BOOL),
+    ],
+];
